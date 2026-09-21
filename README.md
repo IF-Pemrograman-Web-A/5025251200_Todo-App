@@ -5,7 +5,7 @@
 **Nama:** Rafi Eka Pramudya  
 **NRP:** 5025251200  
 **Kelas:** Pemrograman Web (A)  
-**Link:** [https://5025251200-to-do-app.netlify.app/](https://if-pemrograman-web-a.github.io/5025251200_Todo-App/)
+**Link:** https://if-pemrograman-web-a.github.io/5025251200_Todo-App/
 
 ## Deskripsi
 
