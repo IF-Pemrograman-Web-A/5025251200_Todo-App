@@ -1,98 +1,108 @@
 # 5025251200_Todo-App
-# Identitas
 
-Nama : Rafi Eka Pramudya
+## Identitas
 
-NRP : 5025251200
+**Nama:** Rafi Eka Pramudya  
+**NRP:** 5025251200  
+**Kelas:** Pemrograman Web (A)
 
-Kelas : Pemrograman Web (A)
-
-# Deskripsi
+## Deskripsi
 
 Aplikasi Todo List sederhana yang dibuat untuk memenuhi tugas mata kuliah Pemrograman Web. Aplikasi ini digunakan untuk membantu pengguna mengelola daftar tugas sehari-hari melalui antarmuka yang sederhana dan responsif.
 
-Aplikasi terdiri dari dua panel utama. Panel kiri digunakan untuk menampilkan daftar tugas, pencarian, dan filter tugas. Panel kanan digunakan untuk melihat serta mengubah detail tugas dan membuat tugas baru.
+Aplikasi terdiri dari dua panel utama:
 
-Aplikasi dikembangkan menggunakan HTML, CSS, dan JavaScript dengan struktur file yang terpisah:
+- **Panel kiri** digunakan untuk menampilkan daftar tugas, pencarian, dan filter tugas.
+- **Panel kanan** digunakan untuk melihat serta mengubah detail tugas dan membuat tugas baru.
 
-index.html untuk struktur halaman.
+Aplikasi dikembangkan menggunakan **HTML, CSS, dan JavaScript** dengan struktur file yang terpisah:
 
-style.css untuk tampilan dan responsive layout.
+- `index.html` untuk struktur halaman.
+- `style.css` untuk tampilan dan responsive layout.
+- `script.js` untuk mengatur interaksi dan fitur aplikasi.
 
-script.js untuk mengatur interaksi dan fitur aplikasi.
+## Fitur
 
-Fitur
+### 1. Menampilkan Todo
 
-1. Menampilkan Todo
+Aplikasi menampilkan daftar tugas yang terdiri dari:
 
-Aplikasi menampilkan daftar tugas yang terdiri dari judul, deskripsi, prioritas, dan informasi waktu tugas.
+- Judul
+- Deskripsi
+- Prioritas
+- Informasi waktu tugas
 
-2. Menambahkan Todo
+### 2. Menambahkan Todo
 
-Pengguna dapat membuat tugas baru melalui form Create New Todo dengan memasukkan judul dan deskripsi tugas.
+Pengguna dapat membuat tugas baru melalui form **Create New Todo** dengan memasukkan judul dan deskripsi tugas.
 
-Tugas baru akan ditambahkan ke daftar dengan status Pending dan prioritas Medium.
+Tugas baru akan ditambahkan ke daftar dengan:
 
-3. Menandai Todo Selesai
+- Status: **Pending**
+- Prioritas: **Medium**
+
+### 3. Menandai Todo Selesai
 
 Pengguna dapat menekan tombol checklist pada setiap tugas untuk mengubah status tugas antara:
 
-Pending
+- **Pending**
+- **Completed**
 
-Completed
+### 4. Melihat dan Mengedit Detail Todo
 
-4. Melihat dan Mengedit Detail Todo
-
-Pengguna dapat memilih salah satu tugas untuk melihat detailnya pada panel Todo Details.
+Pengguna dapat memilih salah satu tugas untuk melihat detailnya pada panel **Todo Details**.
 
 Detail yang dapat diubah meliputi:
 
-Task Title
+- **Task Title**
+- **Description**
+- **Priority**
 
-Description
+Perubahan dapat disimpan menggunakan tombol **Save Changes**.
 
-Priority
+### 5. Menghapus Todo
 
-Perubahan dapat disimpan menggunakan tombol Save Changes.
-
-5. Menghapus Todo
-
-Pengguna dapat menghapus tugas yang sedang dipilih menggunakan tombol Delete.
+Pengguna dapat menghapus tugas yang sedang dipilih menggunakan tombol **Delete**.
 
 Sebelum tugas dihapus, aplikasi akan meminta konfirmasi kepada pengguna.
 
-6. Search Todo
+### 6. Search Todo
 
-Pengguna dapat mencari tugas menggunakan kolom Search tasks....
+Pengguna dapat mencari tugas menggunakan kolom **Search tasks...**.
 
 Pencarian dilakukan berdasarkan:
 
-Judul tugas
+- Judul tugas
+- Deskripsi tugas
 
-Deskripsi tugas
-
-7. Filter Todo
+### 7. Filter Todo
 
 Daftar tugas dapat difilter berdasarkan status:
 
-All untuk menampilkan semua tugas.
+- **All** untuk menampilkan semua tugas.
+- **Pending** untuk menampilkan tugas yang belum selesai.
+- **Completed** untuk menampilkan tugas yang sudah selesai.
 
-Pending untuk menampilkan tugas yang belum selesai.
+### 8. Task Counter
 
-Completed untuk menampilkan tugas yang sudah selesai.
+Aplikasi menampilkan jumlah tugas yang tersedia pada bagian **My Tasks**.
 
-8. Task Counter
+Jumlah tersebut akan diperbarui ketika tugas ditambahkan atau dihapus.
 
-Aplikasi menampilkan jumlah tugas yang tersedia pada bagian My Tasks. Jumlah tersebut akan diperbarui ketika tugas ditambahkan atau dihapus.
-
-9. Responsive Design
+### 9. Responsive Design
 
 Tampilan aplikasi dibuat responsif menggunakan CSS sehingga layout dapat menyesuaikan ukuran layar desktop, tablet, maupun perangkat mobile.
 
-- Tampilan Desktop
+## Tampilan
 
-<img width="1434" height="804" alt="Screenshot 2026-09-14 at 17 12 21" src="https://github.com/user-attachments/assets/9e79f97e-41f1-4827-abd0-e636789ea8dc" />
+### Desktop
 
-- Tampilan Mobile App
+<img width="1434" height="804" alt="Screenshot Todo App Desktop" src="https://github.com/user-attachments/assets/9e79f97e-41f1-4827-abd0-e636789ea8dc" />
 
-  <img width="381" height="686" alt="Screenshot 2026-09-14 at 17 11 48" src="https://github.com/user-attachments/assets/bf518201-87f3-4c08-908f-0612722a2d28" />
+### Mobile
+
+<img width="381" height="686" alt="Screenshot Todo App Mobile" src="https://github.com/user-attachments/assets/bf518201-87f3-4c08-908f-0612722a2d28" />
+
+### Notes
+
+Data Todo pada versi ini dikelola menggunakan JavaScript di sisi client. Data belum menggunakan database atau localStorage, sehingga perubahan data tidak disimpan secara permanen setelah halaman browser di-refresh.
