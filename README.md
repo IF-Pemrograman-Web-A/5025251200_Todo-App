@@ -7,103 +7,71 @@
 **Kelas:** Pemrograman Web (A)  
 **Link:** https://if-pemrograman-web-a.github.io/5025251200_Todo-App/
 
+---
+
 ## Deskripsi
 
-Aplikasi Todo List sederhana yang dibuat untuk memenuhi tugas mata kuliah Pemrograman Web. Aplikasi ini digunakan untuk membantu pengguna mengelola daftar tugas sehari-hari melalui antarmuka yang sederhana dan responsif.
+Planova Todo App adalah aplikasi pencatatan tugas yang dikembangkan untuk memenuhi penugasan mata kuliah Pemrograman Web, khususnya modul **[E03] The Lost Cavern**. Aplikasi ini membantu pengguna merencanakan dan mengelola aktivitas harian melalui tampilan antarmuka dua panel yang bersih, responsif, modern, dan ramah aksesibilitas.
 
 Aplikasi terdiri dari dua panel utama:
+- **Panel kiri**: Menampilkan ringkasan tugas (*My Tasks*), pencarian tugas dinamis, tab filter status (*All, Pending, Completed*), serta daftar tugas lengkap dengan status checklist dan thumbnail foto.
+- **Panel kanan**: Menampilkan detail tugas yang dipilih untuk disunting atau dihapus, serta formulir pembuatan tugas baru yang dilengkapi pengaturan prioritas, tenggat waktu, waktu notifikasi pengingat, dan penangkapan foto melalui kamera.
 
-- **Panel kiri** digunakan untuk menampilkan daftar tugas, pencarian, dan filter tugas.
-- **Panel kanan** digunakan untuk melihat serta mengubah detail tugas dan membuat tugas baru.
+Struktur berkas proyek:
+- `index.html`: Struktur semantik aplikasi, form input, elemen viewport kamera, dan komponen aksesibel (ARIA).
+- `style.css`: Pengaturan gaya visual, variabel tema CSS (Light & Dark Mode), layout responsif, dan indikator fokus aksesibilitas.
+- `script.js`: Logika interaktif aplikasi, operasi CRUD database IndexedDB, penyimpanan tema di localStorage, integrasi Media Capture API, dan orkestrasi Service Worker.
+- `sw.js`: Service Worker untuk caching aset luring (*offline capability*) dan penanganan pemanggilan *Web Notifications API*.
 
-Aplikasi dikembangkan menggunakan **HTML, CSS, dan JavaScript** dengan struktur file yang terpisah:
+---
 
-- `index.html` untuk struktur halaman.
-- `style.css` untuk tampilan dan responsive layout.
-- `script.js` untuk mengatur interaksi dan fitur aplikasi.
+## Fitur Utama
 
-## Fitur
+### 1. Manajemen Tugas (CRUD & Filter)
+- **Tampilan Dinamis**: Menampilkan daftar tugas dengan atribut judul, deskripsi, tag prioritas (*High, Medium, Low*), tenggat waktu, label jam notifikasi, dan thumbnail foto tugas.
+- **Tambah Tugas Baru**: Pengguna dapat menambahkan tugas baru lengkap dengan deskripsi, prioritas, tanggal, pengingat, serta foto lampiran.
+- **Checklist Selesai**: Menandai penyelesaian tugas dengan mengklik tombol centang (*Pending* / *Completed*).
+- **Edit & Hapus Tugas**: Memilih tugas untuk ditinjau dan diperbarui datanya pada form detail, atau dihapus dengan dialog konfirmasi.
+- **Pencarian & Penyaringan**: Kolom pencarian realtime berdasarkan judul maupun deskripsi, serta filter tab status tugas (*All, Pending, Completed*).
+- **Penghitung Tugas**: Menampilkan jumlah tugas aktif yang tersisa secara langsung.
 
-### 1. Menampilkan Todo
+### 2. Web Storage Implementation
+- **IndexedDB**: Seluruh data tugas disimpan secara terstruktur dan persisten pada database lokal browser (`PlanovaTodoDB`). Data tidak akan hilang saat halaman dimuat ulang (*refresh*), termasuk penyimpanan data gambar dalam format Base64.
+- **localStorage**: Digunakan untuk menyimpan preferensi tema pengguna (*Light Mode* / *Dark Mode*) sehingga tema pilihan tetap bertahan saat pengguna membuka kembali website.
 
-Aplikasi menampilkan daftar tugas yang terdiri dari:
+### 3. Media Capture API (Kamera & Lampiran Foto)
+- Terintegrasi langsung dengan kamera perangkat menggunakan `navigator.mediaDevices.getUserMedia`.
+- Pengguna dapat membuka pratinjau kamera (*live stream video*), mengambil jepretan foto (*capture*) menggunakan elemen canvas, dan melihat hasil foto sebelum disimpan bersama data to-do.
+- Dilengkapi tombol kendali kamera (*Nyalakan, Ambil Foto, Tutup Kamera*) serta *fallback input file* untuk mengunggah berkas gambar dari penyimpanan lokal jika kamera tidak tersedia.
 
-- Judul
-- Deskripsi
-- Prioritas
-- Informasi waktu tugas
+### 4. Service Worker & Scheduled Notifications
+- Mendaftarkan Service Worker (`sw.js`) untuk manajemen cache berkas statis di sisi klien.
+- Dilengkapi input waktu notifikasi pengingat (*Notification Reminder Time*) pada setiap tugas.
+- Sistem meminta izin `Notification.requestPermission()` dan menjadwalkan pengiriman pesan ke Service Worker untuk memicu *Push Notification* desktop/browser saat waktu pengingat tiba.
 
-### 2. Menambahkan Todo
+### 5. Aksesibilitas (A11y & WCAG Best Practices)
+- **Elemen Semantik**: Menggunakan struktur HTML5 yang baku (`<header>`, `<main>`, `<section>`, `<aside>`, `<nav>`, `<form>`, `<fieldset>`, `<legend>`).
+- **Dukungan Pembaca Layar (Screen Reader)**: Mengimplementasikan atribut `aria-label`, `aria-required`, `aria-live="polite"`, dan `role="status"` pada notifikasi aksi serta pembaruan data tugas.
+- **Navigasi Keyboard**: Seluruh elemen interaktif dan kartu todo mendukung navigasi tombol keyboard (`Tab`, `Enter`, `Space`) dengan indikator fokus visual (`:focus-visible`) yang kontras dan jelas.
+- **Kontras & Keterbacaan**: Rasio kontras teks dan tombol memenuhi standar keterbacaan baik pada tema terang maupun tema gelap.
+- **Desain Responsif**: Antarmuka adaptif untuk perangkat desktop, tablet, dan smartphone melalui CSS Media Queries.
 
-Pengguna dapat membuat tugas baru melalui form **Create New Todo** dengan memasukkan judul dan deskripsi tugas.
-
-Tugas baru akan ditambahkan ke daftar dengan:
-
-- Status: **Pending**
-- Prioritas: **Medium**
-
-### 3. Menandai Todo Selesai
-
-Pengguna dapat menekan tombol checklist pada setiap tugas untuk mengubah status tugas antara:
-
-- **Pending**
-- **Completed**
-
-### 4. Melihat dan Mengedit Detail Todo
-
-Pengguna dapat memilih salah satu tugas untuk melihat detailnya pada panel **Todo Details**.
-
-Detail yang dapat diubah meliputi:
-
-- **Task Title**
-- **Description**
-- **Priority**
-
-Perubahan dapat disimpan menggunakan tombol **Save Changes**.
-
-### 5. Menghapus Todo
-
-Pengguna dapat menghapus tugas yang sedang dipilih menggunakan tombol **Delete**.
-
-Sebelum tugas dihapus, aplikasi akan meminta konfirmasi kepada pengguna.
-
-### 6. Search Todo
-
-Pengguna dapat mencari tugas menggunakan kolom **Search tasks...**.
-
-Pencarian dilakukan berdasarkan:
-
-- Judul tugas
-- Deskripsi tugas
-
-### 7. Filter Todo
-
-Daftar tugas dapat difilter berdasarkan status:
-
-- **All** untuk menampilkan semua tugas.
-- **Pending** untuk menampilkan tugas yang belum selesai.
-- **Completed** untuk menampilkan tugas yang sudah selesai.
-
-### 8. Task Counter
-
-Aplikasi menampilkan jumlah tugas yang tersedia pada bagian **My Tasks**.
-
-Jumlah tersebut akan diperbarui ketika tugas ditambahkan atau dihapus.
-
-### 9. Responsive Design
-
-Tampilan aplikasi dibuat responsif menggunakan CSS sehingga layout dapat menyesuaikan ukuran layar desktop, tablet, maupun perangkat mobile.
+---
 
 ## Tampilan
 
 ### Desktop
-
 <img width="1434" height="804" alt="Screenshot Todo App Desktop" src="https://github.com/user-attachments/assets/9e79f97e-41f1-4827-abd0-e636789ea8dc" />
 
 ### Mobile
-
 <img width="381" height="686" alt="Screenshot Todo App Mobile" src="https://github.com/user-attachments/assets/bf518201-87f3-4c08-908f-0612722a2d28" />
 
-### Notes
+---
 
-Data Todo pada versi ini dikelola menggunakan JavaScript di sisi client. Data belum menggunakan database atau localStorage, sehingga perubahan data tidak disimpan secara permanen setelah halaman browser di-refresh.
+## Petunjuk Penggunaan Lokal
+
+Karena fitur **Media Capture API** (`getUserMedia`) dan **Service Worker** memerlukan lingkungan yang aman (*Secure Context* / HTTPS atau localhost):
+
+1. Buka folder proyek di teks editor (misalnya VS Code).
+2. Jalankan lokal server (gunakan ekstensi **Live Server** di VS Code atau perintah CLI `npx serve .` / `python3 -m http.server 8000`).
+3. Berikan izin (*Allow*) ketika peramban meminta akses kamera dan perizinan notifikasi.
