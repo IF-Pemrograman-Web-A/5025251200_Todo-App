@@ -61,7 +61,7 @@ Struktur berkas proyek:
 ## Tampilan
 
 ### Desktop
-<img width="1434" height="804" alt="Screenshot Todo App Desktop" src="https://github.com/user-attachments/assets/9e79f97e-41f1-4827-abd0-e636789ea8dc" />
+<img width="1431" height="806" alt="Screenshot 2026-10-05 at 00 26 19" src="https://github.com/user-attachments/assets/9513b1f4-801d-4a52-85f9-02342da11a1f" />
 
 ### Mobile
 <img width="381" height="686" alt="Screenshot Todo App Mobile" src="https://github.com/user-attachments/assets/bf518201-87f3-4c08-908f-0612722a2d28" />
