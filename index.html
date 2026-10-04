@@ -3,125 +3,150 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo List App</title>
+    <title>Todo List App - Planova</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header class="header">
-        <div class="logo">
-            <span>✓</span>
-            <h1>Planova</h1>
+        <div class="header-main">
+            <div class="logo">
+                <span aria-hidden="true">✓</span>
+                <h1>Planova</h1>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Ganti mode tema gelap atau terang" type="button">
+                <span id="theme-icon" aria-hidden="true">🌙</span>
+                <span id="theme-text">Dark Mode</span>
+            </button>
         </div>
         <p>Organize your tasks, Make your day more productive.</p>
     </header>
 
+    <div id="status-live" class="sr-only" role="status" aria-live="polite"></div>
+
     <main class="container">
-        <section class="todo-panel">
+        <section class="todo-panel" aria-labelledby="todo-heading">
             <div class="panel-header">
                 <div>
-                    <h2>My Tasks</h2>
+                    <h2 id="todo-heading">My Tasks</h2>
                     <p>Manage your daily activities</p>
                 </div>
-                <span class="task-count" id="task-count">3 Tasks</span>
+                <span class="task-count" id="task-count" aria-live="polite">0 Tasks</span>
             </div>
 
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="Search tasks..." />
+                <label for="search-input" class="sr-only">Cari tugas</label>
+                <input type="text" id="search-input" placeholder="Search tasks..." aria-label="Search tasks" />
             </div>
 
-            <div class="filter">
-                <button class="active" data-filter="all">All</button>
-                <button data-filter="pending">Pending</button>
-                <button data-filter="completed">Completed</button>
-            </div>
+            <nav class="filter" aria-label="Filter status tugas">
+                <button class="active" data-filter="all" type="button">All</button>
+                <button data-filter="pending" type="button">Pending</button>
+                <button data-filter="completed" type="button">Completed</button>
+            </nav>
 
-            <div class="todo-list" id="todo-list">
-                <article class="todo-item selected" data-status="completed">
-                    <div class="todo-check completed-check">✓</div>
-                    <div class="todo-info">
-                        <h3>Complete Web Development Assignment</h3>
-                        <p>Finish HTML and CSS project</p>
-                        <div class="todo-meta">
-                            <span class="priority high">High</span>
-                            <span>Today</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="todo-item" data-status="pending">
-                    <div class="todo-check"></div>
-                    <div class="todo-info">
-                        <h3>Study for Programming Exam</h3>
-                        <p>Review object-oriented programming</p>
-                        <div class="todo-meta">
-                            <span class="priority medium">Medium</span>
-                            <span>Tomorrow</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="todo-item" data-status="pending">
-                    <div class="todo-check"></div>
-                    <div class="todo-info">
-                        <h3>Team Meeting</h3>
-                        <p>Discuss project progress</p>
-                        <div class="todo-meta">
-                            <span class="priority low">Low</span>
-                            <span>Friday</span>
-                        </div>
-                    </div>
-                </article>
+            <div class="todo-list" id="todo-list" role="region" aria-live="polite">
             </div>
         </section>
 
-        <aside class="detail-panel">
+        <aside class="detail-panel" aria-labelledby="detail-heading">
             <div class="panel-header">
                 <div>
-                    <h2>Todo Details</h2>
+                    <h2 id="detail-heading">Todo Details</h2>
                     <p>View and edit your task</p>
                 </div>
-                <span class="status">In Progress</span>
+                <span class="status" id="detail-status">In Progress</span>
             </div>
 
-            <div class="detail-content">
+            <form id="detail-form" class="detail-content" novalidate>
                 <label for="task-title">Task Title</label>
-                <input type="text" id="task-title" value="Complete Web Development Assignment" />
+                <input type="text" id="task-title" placeholder="Select or type task title..." required />
 
                 <label for="task-description">Description</label>
-                <textarea id="task-description" rows="5">Finish the HTML and CSS project according to the assignment requirements.</textarea>
+                <textarea id="task-description" rows="3" placeholder="Task description..."></textarea>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="priority">Priority</label>
                         <select id="priority">
-                            <option>High</option>
-                            <option>Medium</option>
-                            <option>Low</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="date">Due Date</label>
-                        <input type="date" id="date" value="2026-09-15" />
+                        <input type="date" id="date" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="detail-notify">Notification Reminder</label>
+                    <input type="datetime-local" id="detail-notify" />
+                </div>
+
+                <div class="media-container">
+                    <label>Task Attachment (Image)</label>
+                    <div class="preview-wrap">
+                        <img id="detail-image-preview" src="" alt="Pratinjau foto tugas" style="display: none;" />
+                        <span id="no-image-text" class="placeholder-text">No image attached</span>
                     </div>
                 </div>
 
                 <div class="detail-actions">
-                    <button class="delete-btn" id="delete-btn">Delete</button>
-                    <button class="save-btn" id="save-btn">Save Changes</button>
+                    <button type="button" class="delete-btn" id="delete-btn">Delete</button>
+                    <button type="button" class="save-btn" id="save-btn">Save Changes</button>
                 </div>
-            </div>
-
+            </form>
             <div class="new-todo">
                 <h2>Create New Todo</h2>
                 <p>Add a new task to your list.</p>
 
                 <form id="new-todo-form">
-                    <label for="new-title">Task Title</label>
-                    <input type="text" id="new-title" placeholder="Enter task title" required />
+                    <label for="new-title">Task Title *</label>
+                    <input type="text" id="new-title" placeholder="Enter task title" required aria-required="true" />
 
                     <label for="new-description">Description</label>
-                    <textarea id="new-description" rows="3" placeholder="Enter task description"></textarea>
+                    <textarea id="new-description" rows="2" placeholder="Enter task description"></textarea>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-priority">Priority</label>
+                            <select id="new-priority">
+                                <option value="High">High</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-date">Due Date</label>
+                            <input type="date" id="new-date" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-notify">Notification Reminder Time</label>
+                        <input type="datetime-local" id="new-notify" />
+                    </div>
+
+                    <fieldset class="media-fieldset">
+                        <legend>Capture / Upload Image</legend>
+                        <div class="camera-actions">
+                            <button type="button" id="start-cam-btn" class="cam-btn">Nyalakan Kamera</button>
+                            <button type="button" id="capture-cam-btn" class="cam-btn highlight" style="display:none;">Ambil Foto</button>
+                            <button type="button" id="stop-cam-btn" class="cam-btn danger" style="display:none;">Tutup Kamera</button>
+                        </div>
+
+                        <div class="camera-viewport">
+                            <video id="camera-video" autoplay playsinline aria-label="Live view kamera" style="display:none;"></video>
+                            <canvas id="camera-canvas" style="display:none;"></canvas>
+                            <img id="new-image-preview" alt="Pratinjau foto baru" style="display:none;" />
+                        </div>
+
+                        <div class="upload-fallback">
+                            <label for="new-file" class="sub-label">Atau unggah file gambar:</label>
+                            <input type="file" id="new-file" accept="image/*" />
+                        </div>
+                    </fieldset>
 
                     <button type="submit" class="add-btn">+ Add New Todo</button>
                 </form>
