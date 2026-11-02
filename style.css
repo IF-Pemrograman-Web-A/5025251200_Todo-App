@@ -515,7 +515,6 @@ button {
     .delete-btn, .save-btn { width: 100%; }
 }
 
-/* ===== PWA (E05): install button & status jaringan ===== */
 .header-actions {
     display: flex;
     align-items: center;

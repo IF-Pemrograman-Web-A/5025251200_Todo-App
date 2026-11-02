@@ -158,7 +158,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-/* ---------- PWA: tombol Install (E05) ---------- */
 const installBtn = document.getElementById('install-btn');
 const networkStatusEl = document.getElementById('network-status');
 let deferredInstallPrompt = null;
@@ -184,7 +183,6 @@ window.addEventListener('appinstalled', () => {
     if (statusLive) statusLive.textContent = 'Planova berhasil dipasang sebagai aplikasi.';
 });
 
-/* ---------- Indikator online / offline ---------- */
 function updateNetworkStatus() {
     networkStatusEl.hidden = navigator.onLine;
     if (typeof statusLive !== 'undefined' && statusLive) {

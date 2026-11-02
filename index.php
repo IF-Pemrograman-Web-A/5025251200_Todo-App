@@ -8,10 +8,8 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Include Modul Menu Bar / Side Bar -->
         <?php include 'menu-bar.php'; ?>
 
-        <!-- Include Modul Content -->
         <?php include 'content.php'; ?>
     </div>
 </body>

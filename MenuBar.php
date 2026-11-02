@@ -6,7 +6,7 @@ $current_type = isset($_GET['type']) ? $_GET['type'] : 'personal';
     <nav>
         <ul>
             <li class="<?= $current_type === 'personal' ? 'active' : '' ?>">
-                <a href="index.php?type=personal">📌 Personal</a>
+                <a href="index.php?type=personal"> Personal</a>
             </li>
             <li class="<?= $current_type === 'shared' ? 'active' : '' ?>">
                 <a href="index.php?type=shared">👥 Shared</a>

@@ -18,7 +18,6 @@ const PRECACHE_URLS = [
     './icons/favicon-32.png'
 ];
 
-/* ---------- Install: precache app shell + offline page ---------- */
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(SHELL_CACHE)
@@ -27,7 +26,6 @@ self.addEventListener('install', (event) => {
     );
 });
 
-/* ---------- Activate: hapus cache versi lama ---------- */
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys()
@@ -40,10 +38,6 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-/* ---------- Strategi ---------- */
-/* Response hasil redirect (mis. server `serve` yang mengubah /index.html -> /)
- * tidak boleh dipakai untuk request navigasi, kalau tidak browser menampilkan
- * ERR_FAILED. Fungsi ini membuat salinan "bersih" tanpa flag redirected. */
 async function cleanResponse(res) {
     if (!res || !res.redirected) return res;
     const body = await res.blob();
@@ -63,7 +57,6 @@ async function networkFirst(request) {
         }
         return fresh;
     } catch (err) {
-        // Offline: coba halaman yang sama, lalu app shell, lalu halaman offline
         const cached = (await caches.match(request, { ignoreSearch: true })) ||
             (await caches.match('./')) ||
             (await caches.match('./index.html')) ||
@@ -123,7 +116,6 @@ self.addEventListener('fetch', (event) => {
     }
 });
 
-/* ---------- Notifikasi pengingat tugas (dari E03) ---------- */
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'TRIGGER_NOTIFICATION') {
         self.registration.showNotification(event.data.title, {
