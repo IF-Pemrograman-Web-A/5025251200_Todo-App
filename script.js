@@ -151,10 +151,51 @@ newFileInput.addEventListener('change', (e) => {
     }
 });
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('SW terdaftar di scope:', reg.scope))
-        .catch(err => console.error('Pendaftaran Service Worker gagal:', err));
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('SW terdaftar di scope:', reg.scope))
+            .catch(err => console.error('Pendaftaran Service Worker gagal:', err));
+    });
 }
+
+/* ---------- PWA: tombol Install (E05) ---------- */
+const installBtn = document.getElementById('install-btn');
+const networkStatusEl = document.getElementById('network-status');
+let deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    installBtn.hidden = false;
+});
+
+installBtn.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    console.log('Hasil install prompt:', outcome);
+    deferredInstallPrompt = null;
+    installBtn.hidden = true;
+});
+
+window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    installBtn.hidden = true;
+    if (statusLive) statusLive.textContent = 'Planova berhasil dipasang sebagai aplikasi.';
+});
+
+/* ---------- Indikator online / offline ---------- */
+function updateNetworkStatus() {
+    networkStatusEl.hidden = navigator.onLine;
+    if (typeof statusLive !== 'undefined' && statusLive) {
+        statusLive.textContent = navigator.onLine
+            ? 'Koneksi internet kembali tersambung.'
+            : 'Kamu sedang offline. Aplikasi tetap bisa digunakan.';
+    }
+}
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+networkStatusEl.hidden = navigator.onLine;
 
 async function askNotificationPermission() {
     if ('Notification' in window && Notification.permission !== 'granted') {

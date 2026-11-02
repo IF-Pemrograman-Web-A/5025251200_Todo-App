@@ -1,77 +1,94 @@
-# 5025251200_Todo-App
+# Planova Todo App
 
-## Identitas
+Nama: Rafi Eka Pramudya
 
-**Nama:** Rafi Eka Pramudya  
-**NRP:** 5025251200  
-**Kelas:** Pemrograman Web (A)  
-**Link:** https://if-pemrograman-web-a.github.io/5025251200_Todo-App/
+NRP: 5025251200
 
----
+Kelas: Pemrograman Web (A)
 
-## Deskripsi
+Link: https://if-pemrograman-web-a.github.io/5025251200_Todo-App/
 
-Planova Todo App adalah aplikasi pencatatan tugas yang dikembangkan untuk memenuhi penugasan mata kuliah Pemrograman Web, khususnya modul **[E03] The Lost Cavern**. Aplikasi ini membantu pengguna merencanakan dan mengelola aktivitas harian melalui tampilan antarmuka dua panel yang bersih, responsif, modern, dan ramah aksesibilitas.
+## Tentang aplikasi
 
-Aplikasi terdiri dari dua panel utama:
-- **Panel kiri**: Menampilkan ringkasan tugas (*My Tasks*), pencarian tugas dinamis, tab filter status (*All, Pending, Completed*), serta daftar tugas lengkap dengan status checklist dan thumbnail foto.
-- **Panel kanan**: Menampilkan detail tugas yang dipilih untuk disunting atau dihapus, serta formulir pembuatan tugas baru yang dilengkapi pengaturan prioritas, tenggat waktu, waktu notifikasi pengingat, dan penangkapan foto melalui kamera.
+Planova adalah aplikasi todo list yang dibuat untuk tugas mata kuliah Pemrograman Web. Aplikasinya dijadikan PWA (Progressive Web App) supaya tetap bisa dibuka tanpa internet dan bisa di-install seperti aplikasi biasa.
 
-Struktur berkas proyek:
-- `index.html`: Struktur semantik aplikasi, form input, elemen viewport kamera, dan komponen aksesibel (ARIA).
-- `style.css`: Pengaturan gaya visual, variabel tema CSS (Light & Dark Mode), layout responsif, dan indikator fokus aksesibilitas.
-- `script.js`: Logika interaktif aplikasi, operasi CRUD database IndexedDB, penyimpanan tema di localStorage, integrasi Media Capture API, dan orkestrasi Service Worker.
-- `sw.js`: Service Worker untuk caching aset luring (*offline capability*) dan penanganan pemanggilan *Web Notifications API*.
+Fitur yang sudah ada dari tugas sebelumnya:
+- tambah, edit, hapus, dan centang tugas
+- cari tugas dan filter All / Pending / Completed
+- prioritas, tanggal, dan pengingat notifikasi
+- ambil foto dari kamera atau upload gambar
+- mode terang dan gelap
+- data disimpan di IndexedDB, tema disimpan di localStorage
 
----
+## Struktur file
 
-## Fitur Utama
+```
+index.html            halaman utama
+style.css             tampilan
+script.js             logika aplikasi + tombol install
+sw.js                 service worker
+manifest.webmanifest  manifest PWA
+offline.html          halaman cadangan saat offline
+icons/                ikon aplikasi
+docs/screenshots/     bukti pengujian
+```
 
-### 1. Manajemen Tugas (CRUD & Filter)
-- **Tampilan Dinamis**: Menampilkan daftar tugas dengan atribut judul, deskripsi, tag prioritas (*High, Medium, Low*), tenggat waktu, label jam notifikasi, dan thumbnail foto tugas.
-- **Tambah Tugas Baru**: Pengguna dapat menambahkan tugas baru lengkap dengan deskripsi, prioritas, tanggal, pengingat, serta foto lampiran.
-- **Checklist Selesai**: Menandai penyelesaian tugas dengan mengklik tombol centang (*Pending* / *Completed*).
-- **Edit & Hapus Tugas**: Memilih tugas untuk ditinjau dan diperbarui datanya pada form detail, atau dihapus dengan dialog konfirmasi.
-- **Pencarian & Penyaringan**: Kolom pencarian realtime berdasarkan judul maupun deskripsi, serta filter tab status tugas (*All, Pending, Completed*).
-- **Penghitung Tugas**: Menampilkan jumlah tugas aktif yang tersisa secara langsung.
+## E05 - The Offline Abyss
 
-### 2. Web Storage Implementation
-- **IndexedDB**: Seluruh data tugas disimpan secara terstruktur dan persisten pada database lokal browser (`PlanovaTodoDB`). Data tidak akan hilang saat halaman dimuat ulang (*refresh*), termasuk penyimpanan data gambar dalam format Base64.
-- **localStorage**: Digunakan untuk menyimpan preferensi tema pengguna (*Light Mode* / *Dark Mode*) sehingga tema pilihan tetap bertahan saat pengguna membuka kembali website.
+### Manifest
+`manifest.webmanifest` dipasang di `index.html` lewat tag `<link rel="manifest">`. Isinya nama aplikasi, `display standalone`, warna tema `#5267d9`, dan ikon 192x192 serta 512x512 (termasuk versi maskable). Semua path dibuat relatif supaya tetap jalan di GitHub Pages yang memakai sub-path.
 
-### 3. Media Capture API (Kamera & Lampiran Foto)
-- Terintegrasi langsung dengan kamera perangkat menggunakan `navigator.mediaDevices.getUserMedia`.
-- Pengguna dapat membuka pratinjau kamera (*live stream video*), mengambil jepretan foto (*capture*) menggunakan elemen canvas, dan melihat hasil foto sebelum disimpan bersama data to-do.
-- Dilengkapi tombol kendali kamera (*Nyalakan, Ambil Foto, Tutup Kamera*) serta *fallback input file* untuk mengunggah berkas gambar dari penyimpanan lokal jika kamera tidak tersedia.
+### Precache
+Saat service worker di-install, file berikut langsung disimpan ke cache `planova-shell-v2` (`index.html`, `offline.html`, `style.css`, `script.js`, manifest, dan semua ikon). Cache versi lama dihapus saat service worker aktif.
 
-### 4. Service Worker & Scheduled Notifications
-- Mendaftarkan Service Worker (`sw.js`) untuk manajemen cache berkas statis di sisi klien.
-- Dilengkapi input waktu notifikasi pengingat (*Notification Reminder Time*) pada setiap tugas.
-- Sistem meminta izin `Notification.requestPermission()` dan menjadwalkan pengiriman pesan ke Service Worker untuk memicu *Push Notification* desktop/browser saat waktu pengingat tiba.
+### Strategi caching
 
-### 5. Aksesibilitas (A11y & WCAG Best Practices)
-- **Elemen Semantik**: Menggunakan struktur HTML5 yang baku (`<header>`, `<main>`, `<section>`, `<aside>`, `<nav>`, `<form>`, `<fieldset>`, `<legend>`).
-- **Dukungan Pembaca Layar (Screen Reader)**: Mengimplementasikan atribut `aria-label`, `aria-required`, `aria-live="polite"`, dan `role="status"` pada notifikasi aksi serta pembaruan data tugas.
-- **Navigasi Keyboard**: Seluruh elemen interaktif dan kartu todo mendukung navigasi tombol keyboard (`Tab`, `Enter`, `Space`) dengan indikator fokus visual (`:focus-visible`) yang kontras dan jelas.
-- **Kontras & Keterbacaan**: Rasio kontras teks dan tombol memenuhi standar keterbacaan baik pada tema terang maupun tema gelap.
-- **Desain Responsif**: Antarmuka adaptif untuk perangkat desktop, tablet, dan smartphone melalui CSS Media Queries.
+| Resource | Strategi | Kenapa |
+|---|---|---|
+| Halaman HTML | Network First, kalau gagal ambil dari cache, terakhir `offline.html` | biar dapat versi terbaru kalau online |
+| CSS dan JS | Stale While Revalidate | cepat dari cache, update jalan di belakang |
+| Gambar, ikon, manifest | Cache First | jarang berubah |
+| Request ke domain lain | tidak di-cache | |
 
----
+Pakai service worker biasa, tidak pakai Workbox.
 
-## Tampilan
+### Tombol install
+Tombol "Install App" ada di header dan awalnya disembunyikan. Tombol baru muncul kalau browser mengirim event `beforeinstallprompt`. Setelah diklik, muncul dialog install bawaan browser. Saat koneksi putus juga muncul label "Offline" di header.
 
-### Desktop
-<img width="1431" height="806" alt="Screenshot 2026-10-05 at 00 26 19" src="https://github.com/user-attachments/assets/9513b1f4-801d-4a52-85f9-02342da11a1f" />
+## Cara menjalankan
 
-### Mobile
-<img width="381" height="686" alt="Screenshot Todo App Mobile" src="https://github.com/user-attachments/assets/bf518201-87f3-4c08-908f-0612722a2d28" />
+```bash
+npx serve .
+```
 
----
+buka ```http://localhost:3000``` di Chrome. Service worker dan kamera hanya jalan di localhost atau HTTPS. Kalau sebelumnya pernah buka versi lama, buka DevTools, Application, Storage, lalu klik Clear site data.
 
-## Petunjuk Penggunaan Lokal
+## Pengujian offline
 
-Karena fitur **Media Capture API** (`getUserMedia`) dan **Service Worker** memerlukan lingkungan yang aman (*Secure Context* / HTTPS atau localhost):
+Langkah yang dilakukan:
+1. Buka aplikasi lewat `localhost:3000` saat online.
+2. Buka DevTools, tab Application. Cek Manifest, Service Workers, dan Cache Storage.
+3. Ubah Network jadi Offline (DevTools harus tetap terbuka), lalu refresh.
+4. Tambah, ubah, dan hapus tugas saat offline, lalu refresh lagi.
+5. Buka alamat yang tidak ada (`/halaman-lain`) dan `/offline.html`.
+6. Matikan mode Offline, lalu coba tombol Install App.
 
-1. Buka folder proyek di teks editor (misalnya VS Code).
-2. Jalankan lokal server (gunakan ekstensi **Live Server** di VS Code atau perintah CLI `npx serve .` / `python3 -m http.server 8000`).
-3. Berikan izin (*Allow*) ketika peramban meminta akses kamera dan perizinan notifikasi.
+Screenshot:
+
+Manifest
+![Manifest](docs/screenshots/01-manifest.png)
+
+Service worker aktif
+![Service Worker](docs/screenshots/02-service-worker.png)
+
+Cache storage
+![Cache Storage](docs/screenshots/03-cache-storage.png)
+
+Aplikasi saat offline
+![Offline](docs/screenshots/04-offline-app.png)
+
+Halaman offline.html
+![Offline Page](docs/screenshots/05-offline-page.png)
+
+Install
+![Install](docs/screenshots/06-install.png)

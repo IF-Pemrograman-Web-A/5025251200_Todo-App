@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5267d9" />
+    <title>Offline - Planova</title>
+    <link rel="icon" type="image/png" href="icons/favicon-32.png" />
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6fb;
+            color: #263248;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        main {
+            background: #fff;
+            border: 1px solid #e8ebf2;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(50, 60, 90, 0.05);
+            max-width: 420px;
+            padding: 36px 28px;
+            text-align: center;
+        }
+        img { width: 72px; height: 72px; border-radius: 16px; margin-bottom: 18px; }
+        h1 { font-size: 22px; margin-bottom: 10px; }
+        p { color: #5b6477; font-size: 14px; line-height: 1.6; margin-bottom: 22px; }
+        button {
+            background: #5267d9;
+            color: #fff;
+            border: 0;
+            border-radius: 20px;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover { background: #3f53c2; }
+        button:focus-visible { outline: 3px solid #5267d9; outline-offset: 2px; }
+    </style>
+</head>
+<body>
+    <main role="main">
+        <img src="icons/icon-192.png" alt="Logo Planova" />
+        <h1>Kamu sedang offline</h1>
+        <p>Halaman ini belum tersimpan di perangkatmu, jadi belum bisa dibuka tanpa internet.
+           Tugas yang sudah kamu simpan tetap aman di perangkat dan bisa diakses lagi
+           setelah kamu membuka Planova.</p>
+        <button type="button" onclick="location.reload()">Coba lagi</button>
+    </main>
+</body>
+</html>

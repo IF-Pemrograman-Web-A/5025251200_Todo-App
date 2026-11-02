@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo List App - Planova</title>
+
+    <!-- PWA (E05) -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#5267d9" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Planova" />
+
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,10 +22,17 @@
                 <span aria-hidden="true">✓</span>
                 <h1>Planova</h1>
             </div>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Ganti mode tema gelap atau terang" type="button">
-                <span id="theme-icon" aria-hidden="true">🌙</span>
-                <span id="theme-text">Dark Mode</span>
-            </button>
+            <div class="header-actions">
+                <span id="network-status" class="network-status" role="status" hidden>Offline</span>
+                <button id="install-btn" class="install-btn" type="button" hidden aria-label="Pasang Planova sebagai aplikasi">
+                    <span aria-hidden="true">⬇</span>
+                    <span>Install App</span>
+                </button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Ganti mode tema gelap atau terang" type="button">
+                    <span id="theme-icon" aria-hidden="true">🌙</span>
+                    <span id="theme-text">Dark Mode</span>
+                </button>
+            </div>
         </div>
         <p>Organize your tasks, Make your day more productive.</p>
     </header>
