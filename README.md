@@ -33,7 +33,7 @@ icons/                ikon aplikasi
 docs/screenshots/     bukti pengujian
 ```
 
-## E05 - The Offline Abyss
+## E05
 
 ### Manifest
 `manifest.webmanifest` dipasang di `index.html` lewat tag `<link rel="manifest">`. Isinya nama aplikasi, `display standalone`, warna tema `#5267d9`, dan ikon 192x192 serta 512x512 (termasuk versi maskable). Semua path dibuat relatif supaya tetap jalan di GitHub Pages yang memakai sub-path.
