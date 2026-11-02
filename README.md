@@ -6,7 +6,7 @@ NRP: 5025251200
 
 Kelas: Pemrograman Web (A)
 
-Link: https://if-pemrograman-web-a.github.io/5025251200_Todo-App/
+Link: [https://if-pemrograman-web-a.github.io/5025251200_Todo-App/](https://if-pemrograman-web-a.github.io/5025251200_Todo-App/)
 
 ## Tentang aplikasi
 
